@@ -12,6 +12,7 @@ const socket = new WebSocket ('ws://localhost:8082')
 const HomePage = () => {
   const [ message, setMessage] = useState([])
   
+  
 
     const sendToServer = () => {
       // setMessage()
@@ -47,25 +48,30 @@ const HomePage = () => {
       return (
         <div>
           <input onChange={onInputHandler} placeholder='Send a message'/>
-          <button onClick={sendToServer} className='send-message'>Send Message</button>
+          <button id = 'button' onClick={sendToServer} className='send-message'>Send Message</button>
         </div>
       )
     }
 
-    const onSubmit = () => {
-      return <div>{message[0]}</div>
-    }
+    // const onSubmit = () => {
+    //   return <div>{message[0]}</div>
+    // }
    
-      
-    socket.onmessage = ({ data }) => {
-      console.log('message from server', data)
-      console.log(data)
-    }
+   
+      socket.onmessage = ({ data }) => {
+        console.log('message from server', data)
+        console.log(data)
+        setMessage(data => [...message, data])
+      }
+
+     
+    
      console.log(message)
       return (
         <div className="App">
+          <h1 id = 'message'>{message[0]}</h1>
           {messageInput()}
-          {message[0]}
+         
           
         </div>
       );
