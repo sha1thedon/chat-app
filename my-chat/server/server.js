@@ -26,7 +26,7 @@ wss.on('connection', ws => {
         console.log(`client has sent:${data}`)
 
         wss.clients.forEach(function each(client) {
-            client.send(`message received from client: ${data}`)
+            client.send(data.toString())
         
         })
         const str = data.toString()

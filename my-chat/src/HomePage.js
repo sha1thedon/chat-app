@@ -11,15 +11,19 @@ const socket = new WebSocket ('ws://localhost:8082')
 
 const HomePage = () => {
   const [ message, setMessage] = useState([])
+  const [input, setInput] = useState('')
   
   
 
     const sendToServer = () => {
+      // const myNewArray = [...message]
+      //   myNewArray.push(input)
+      //   setMessage(myNewArray)
       // setMessage()
       //onSubmit()
-      socket.send(message[0])
+      socket.send(input)
       // event.preventDefault()
-      console.log('sendToServer: ', message[0])
+      console.log('sendToServer: ', input)
     }
 
     //  const buttonClicked = () => {
@@ -36,10 +40,12 @@ const HomePage = () => {
 
     const onInputHandler = (event) => {
       if(validMessage(event.target.value)){
-          setMessage([event.target.value])
+        setInput(event.target.value)
+          // setMessage([event.target.value])
           console.log('onInputHandler if: ', event.target.value)
       } else {
-          setMessage([])
+        setInput('')
+          // setMessage([])
           console.log('onInputHandler else: ', event.target.value)
       }
     }
@@ -61,15 +67,23 @@ const HomePage = () => {
       socket.onmessage = ({ data }) => {
         console.log('message from server', data)
         console.log(data)
-        setMessage(data => [...message, data])
+        const myNewArray = [...message]
+        myNewArray.push(data)
+        setMessage(myNewArray)
       }
 
-     
+     const messageList = () => {
+      return (
+        <div>
+          {message.map((text, index) => <h1 key={index} id = 'message'>{text}</h1>)}
+        </div>
+      )
+     }
     
-     console.log(message)
+     console.log('message = ',message)
       return (
         <div className="App">
-          <h1 id = 'message'>{message[0]}</h1>
+          {messageList()}
           {messageInput()}
          
           
