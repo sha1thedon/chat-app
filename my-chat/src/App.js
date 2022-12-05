@@ -1,40 +1,20 @@
 import './App.css'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import React from 'react'
-
-
-import HomePage from './HomePage.js'
-
-// import {Input} from 'antd'
-// import 'antd/dist/antd.css'
-
-// const {Search} = Input
-
-
-// const socket = new WebSocket('ws://localhost:8082')
-
-// socket.onopen = (event) => {
-//   socket.send('here is some data')
-// }
-
-// socket.onmessage = (e) => {
-//   console.log('message from server ',e.data)
-// }
-
-
-// document.querySelector('button').onClick = () => {
-//   socket.send('hello')
-// }
-// socket.addEventListener('open', () => {
-//   console.log('We are connected')
-// })
-
+import Login from './views/Login'
+import HomePage from './views/HomePage'
 
 function App (){
   return(
+    <BrowserRouter>
     <div className='App'>
-      <HomePage></HomePage>
+      <Routes>
+        <Route path = '/' element = {<Login/>}/>
+        <Route path = '/homepage' element = {<HomePage/>}/>
+      </Routes>
     </div>
+    </BrowserRouter>
   )
 }
 
