@@ -10,7 +10,7 @@ import {useNavigate} from 'react-router-dom'
 
 
 
-const HomePage = () => {
+const HomePage = ({socket}) => {
     // const onSubmit = () => {
     //   return <div>{message[0]}</div>
     // }
@@ -18,7 +18,7 @@ const HomePage = () => {
       return (
         <div className="App">
 
-         <MessageBox></MessageBox>
+         <MessageBox socket={socket} ></MessageBox>
           
         </div>
       );

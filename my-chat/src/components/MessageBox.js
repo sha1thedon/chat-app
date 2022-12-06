@@ -1,11 +1,7 @@
 import React from "react";
 import { useState } from "react";
 
-
-const socket = new WebSocket ('ws://localhost:8082')
-
-
-const MessageBox = () => {
+const MessageBox = ({socket}) => {
     const [input, setInput] = useState('')
     const [ message, setMessage] = useState([])
 
@@ -65,7 +61,7 @@ const MessageBox = () => {
        }
 
     return (
-        <div>
+        <div className="message-box">
         {messageList()}
         {messageInput()}
       </div>

@@ -1,3 +1,18 @@
+:root {
+  --iwRed: #cf1259;
+  --iwGreen: #4bcf12;
+  --iwLightRed: #f781ae;
+  --iwOrange: #ff6610;
+  --iwDarkOrange: #cf540c;
+  --iwBlueGrey: #606DA6;
+  --iwLightBlue: #919bc7;
+  --iwBlack: #222222;
+  --iwGrey: #d4d4d4;
+  --iwDarkGrey: #9c9c9c;
+  --iwPureBlack: black;
+}
+
+
 .App {
   text-align: center;
 }
@@ -27,7 +42,6 @@
 .App-link {
   color: #61dafb;
 }
-
 
 @keyframes App-logo-spin {
   from {
