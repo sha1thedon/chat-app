@@ -10,6 +10,7 @@ import Lobby from './views/Lobby'
 
 const socket = new WebSocket ('ws://localhost:8082')
 function App (){
+  const [roomIDlist, setRoomIDlist] = useState([])
 
   // const [messengerObject, setMessengerObject] = useState({name: '', id: ''})
   // const [chatState, setChatState] = useState({
@@ -97,9 +98,9 @@ function App (){
       <Routes>
         <Route path = '/' element = {<Login/>}/>
         <Route path = '/homepage' element = {<HomePage socket={socket} />}/>
-        <Route path = '/createlobby' element = {<CreateLobby socket={socket} />}/>
-        <Route path = '/joinlobby' element = {<JoinLobby socket={socket} />}/>
-        <Route path = 'lobby' element = {<Lobby socket={socket} />}/>
+        <Route path = '/createlobby' element = {<CreateLobby socket={socket} roomIDlist={roomIDlist} setRoomIDlist={setRoomIDlist}/>}/>
+        <Route path = '/joinlobby' element = {<JoinLobby socket={socket} roomIDlist={roomIDlist} setRoomIDlist={setRoomIDlist}/>}/>
+        <Route path = 'lobby' element = {<Lobby socket={socket} roomIDlist={roomIDlist} setRoomIDlist={setRoomIDlist}/>}/>
       </Routes>
     </div>
     </BrowserRouter>
