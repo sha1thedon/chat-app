@@ -9,11 +9,11 @@ const Lobby = ({chatState, messengerObject, currentView}) => {
     const [error, setError] = useState(null)
 
    const navigateToHomePage = () => {
-        navigate('/')
+        navigate('/homepage')
    }
 
     useEffect(() => {
-       if(currentView === '/home'){
+       if(currentView === '/'){
         navigateToHomePage()
        }
     }, [currentView])
