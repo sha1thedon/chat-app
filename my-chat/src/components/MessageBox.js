@@ -1,9 +1,11 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
 
 const MessageBox = ({socket}) => {
     const [input, setInput] = useState('')
     const [ message, setMessage] = useState([])
+   
 
     const messageInput = () => {
         return (
@@ -54,8 +56,8 @@ const MessageBox = ({socket}) => {
     
       const messageList = () => {
         return (
-          <div>
-            {message.map((text, index) => <h1 key={index} id = 'message'>{text}</h1>)}
+          <div id="messages">
+            {message.map((text, index) => <h1 key={index} className="row mb-2" id = 'message'>{text}</h1>)}
           </div>
         )
        }
@@ -64,6 +66,7 @@ const MessageBox = ({socket}) => {
         <div className="message-box">
         {messageList()}
         {messageInput()}
+        {/* <h1>{JSON.stringify(posts)}</h1> */}
       </div>
     )
 

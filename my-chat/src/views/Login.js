@@ -1,6 +1,7 @@
-import React from "react";
+import React, {useRef} from "react";
 import RouteButton from "../components/RouteButton";
 import { useNavigate } from "react-router-dom";
+
 
 const Login = () => {
     const navigate = useNavigate()
@@ -18,9 +19,9 @@ const Login = () => {
     }
 
     return (
-        <div>
+        <div className="align-items-center d-flex">
         <h1>Login page</h1>
-        <RouteButton buttonText={'Create Room'} pageClickHandler={navigateToCreateLobbyPage}></RouteButton>
+        <RouteButton className="create-room" buttonText={'Create Room'} pageClickHandler={navigateToCreateLobbyPage}></RouteButton>
         <RouteButton buttonText={'Join Room'} pageClickHandler={navigateToJoinLobbyPage}></RouteButton>
         </div>
     )

@@ -2,39 +2,36 @@ import React from "react";
 import RouteButton from "../components/RouteButton";
 import {useNavigate} from 'react-router-dom'
 import { useState } from 'react'
-import axios from 'axios'
 
-const JoinLobby = ({socket, messengerObject, setMyRoomID, roomIDlist, setRoomIDlist}) => {
+const JoinLobby = ({socket, wsAddress, lobby, lobbyList, user, userList}) => {
     // const [currentRoomID, setCurrentRoomID] = useState('')
     const [input, setInput] = useState('')
     const navigate = useNavigate()
-    const navigateToLobby = () => {
-        // setMyRoomID(currentRoomID)
-        // const joinRoomObject = {
-        //     type: 'joinRoom',
-        //     roomID: currentRoomID,
-        //     player: messengerObject
-        // }
-        // const messageToSend = {
-        //     action: 'send',
-        //     message: joinRoomObject
-        // }
-        // console.log('sending to websocket server ', joinRoomObject)
-        // socket.send(JSON.stringify(messageToSend))
+    const navigateToHomePage = () => {
+        
+           
+            console.log('input is ', input)
+        
+            // if (roomIDlist.includes(input)){
+            // console.log('navigate to lobby')
+            // navigate('/lobby')}
+            // else{
+            //     console.log('invalid room id')
+            // }
+            console.log('lobby id is ', lobby.id)
+            console.log('navigate to homepage')
 
-        console.log('navigate to lobby')
-        navigate('/lobby')
+            for (let i =0; i<lobbyList.length; i++){
+                let obj = lobbyList[i]
+            if (obj.id === input){
+                navigate('/homepage')
+            }
+            else{
+                console.log('invalid id')
+            } }
+    
+        
     }
-
-    // const joinLobbyID = () => {
-    //     axios.post('/joinlobby' + lobbyID).then(response => {
-    //         setLobbyID({
-    //             lobbyID: response.data.id,
-    //             users: response.data.users
-    //         })
-    //     })
-    // }
-
 
     const checkCurrentRoomID = (event) => {
         setInput(event.target.value)
@@ -46,7 +43,7 @@ const JoinLobby = ({socket, messengerObject, setMyRoomID, roomIDlist, setRoomIDl
         <div>
             <h1>Join lobby</h1>  
             <input id='room-id-input' type='text' value = {input} onChange={checkCurrentRoomID} />
-            <RouteButton buttonText={'Join Lobby'} pageClickHandler={navigateToLobby}></RouteButton>
+            <RouteButton buttonText={'Join Chat'} pageClickHandler={navigateToHomePage}></RouteButton>
             {/* <button id = 'button' onClick={navigateToLobby} className='send-message'>Join Lobby</button> */}
         </div>
     )

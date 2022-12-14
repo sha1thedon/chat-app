@@ -10,6 +10,7 @@
   --iwGrey: #d4d4d4;
   --iwDarkGrey: #9c9c9c;
   --iwPureBlack: black;
+  background-color: #61dafb;
 }
 
 
@@ -42,6 +43,33 @@
 .App-link {
   color: #61dafb;
 }
+
+.message-box {
+  padding: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  list-style: none;
+  text-align: center;
+}
+
+#messages {
+  height: 200px;
+  font-size: 12px;
+  padding: 20px;
+}
+
+.create-room {
+  background-color: darkblue;
+}
+
+/* input {
+  width: 50%;
+
+}
+
+#button {
+  width: 50%
+} */
 
 @keyframes App-logo-spin {
   from {

@@ -9,14 +9,41 @@
 
 // let events = []
 // const maxEvents= 100
+const fastify = require('fastify')
+const dotenv = require('dotenv')
+const sensible  = require('@fastify/sensible')
+const { PrismaClient } = require('@prisma/client')
+const cors = require('@fastify/cors')
 
-
-
+dotenv.config()
+const app = fastify()
+app.register(sensible)
+app.register(cors, {
+    origin: process.env.CLIENT_URL,
+    credentials: true,
+})
+app.listen({port: process.env.PORT})
 const WebSocket = require('ws')
-
 const wss = new WebSocket.Server({port: 8082})
+const prisma = new PrismaClient()
 
 console.log('listening on port 8082')
+
+app.get('/posts', async (req, res) => {
+    return await commitToDb(prisma.post.findMany({ select: {
+        id: true,
+        title: true
+    }
+
+    }))
+})
+
+async function commitToDb(promise){
+   const [error,data] = await app.to(promise)
+   if(error) return app.httpErrors.internalServerError(error.message)
+   return data
+}
+app.listen({port: process.env.PORT})
 
 // const getRandomID = () => Math.random().toString(36).slice(2,7).toUpperCase()
 // let currentRoomID = getRandomID()
