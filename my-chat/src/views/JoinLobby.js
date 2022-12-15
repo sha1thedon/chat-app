@@ -9,7 +9,7 @@ const JoinLobby = ({socket, wsAddress, lobby, lobbyList, user, userList}) => {
     const navigate = useNavigate()
     const navigateToHomePage = () => {
         
-           
+           console.log('lobby list at join lobby is ', lobbyList)
             console.log('input is ', input)
         
             // if (roomIDlist.includes(input)){
@@ -23,7 +23,8 @@ const JoinLobby = ({socket, wsAddress, lobby, lobbyList, user, userList}) => {
 
             for (let i =0; i<lobbyList.length; i++){
                 let obj = lobbyList[i]
-            if (obj.id === input){
+                console.log('obj is ', obj)
+            if (obj.toString() === input){
                 navigate('/homepage')
             }
             else{

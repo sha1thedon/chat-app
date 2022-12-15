@@ -10,7 +10,7 @@ import {useNavigate} from 'react-router-dom'
 
 
 
-const HomePage = ({socket, generateRandomWebsocket, user, userList, lobbyList, lobby, wsAddress}) => {
+const HomePage = ({s, generateRandomWebsocket, user, userList, lobbyList, lobby, wsAddress}) => {
     // const onSubmit = () => {
     //   return <div>{message[0]}</div>
     // }
@@ -18,7 +18,8 @@ const HomePage = ({socket, generateRandomWebsocket, user, userList, lobbyList, l
       return (
         <div className="App">
 
-         <MessageBox socket={socket} ></MessageBox>
+         <MessageBox s={s} ></MessageBox>
+         {console.log('lobby list at homepage is ', lobbyList)}
           
         </div>
       );

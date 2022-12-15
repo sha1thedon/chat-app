@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 
 
-const MessageBox = ({socket}) => {
+const MessageBox = ({socket, s}) => {
     const [input, setInput] = useState('')
     const [ message, setMessage] = useState([])
    
@@ -23,7 +23,7 @@ const MessageBox = ({socket}) => {
         //   setMessage(myNewArray)
         // setMessage()
         //onSubmit()
-        socket.send(input)
+        s.send(input)
         // event.preventDefault()
         console.log('sendToServer: ', input)
       }
@@ -34,13 +34,13 @@ const MessageBox = ({socket}) => {
       }
     
     
-      socket.onmessage = ({ data }) => {
-        console.log('message from server', data)
-        console.log(data)
-        const myNewArray = [...message]
-        myNewArray.push(data)
-        setMessage(myNewArray)
-      }
+      // s.onmessage = ({ data }) => {
+      //   console.log('message from server', data)
+      //   console.log(data)
+      //   const myNewArray = [...message]
+      //   myNewArray.push(data)
+      //   setMessage(myNewArray)
+      // }
 
     const onInputHandler = (event) => {
         if(validMessage(event.target.value)){

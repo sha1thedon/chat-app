@@ -9,7 +9,8 @@ import JoinLobby from './views/JoinLobby'
 import Lobby from './views/Lobby'
 import './fonts/InterWorks-Medium.ttf'
 import './fonts/InterWorks-Regular.ttf'
-
+import {useNavigate} from 'react-router-dom'
+import RouteButton from "./components/RouteButton";
 
 let wsAddress = 'ws://localhost'
  let ws = "ws://localhost:8082"
@@ -18,15 +19,18 @@ let wsAddress = 'ws://localhost'
  const lobbyList = []
  const userList = []
  const lobby = {
-   'id': 0,
-   'users': userList,
-   'websocket': s,
-   'messages': []
- }
+  'id': 0,
+  'users': userList,
+  'websocket': s,
+  'messages': []
+}
 
 function App (){
+  const [input, setInput] = useState('')
+  const navigate = useNavigate()
 
-
+  lobbyList.push(1234)
+  console.log('lobby list at app.js is ', lobbyList)
 
   function generateRandomWebsocket (wss) {
     let min = 8000;
@@ -43,27 +47,66 @@ function App (){
   }
 
 
- 
- 
+  const createRoom = () => {
+    const newLobby = {
+      'id': generateRoomID(),
+      'users': userList,
+      'websocket': s,
+      'messages': []
+    }
+    lobbyList.push(newLobby)
+    console.log('generateLobby: lobbyList is ', lobbyList)
 
 
+    lobbyList.forEach(function(item){
+      if (input === item.id){
+        navigate('/homepage')
+      }
+      else{console.log('try again')}
+    })
+
+  }
+
+
+  const generateRoomID = () => {
+    let randomNumber = Math.random()
+
+    let ID = randomNumber.toString(36).substring(2, 15) + randomNumber.toString(36).substring(2, 15)
+    console.log('ID is ', ID)
+    return ID
+}
+
+  const joinRoom = () => {
+    console.log(input)
+
+  }
+  const checkCurrentRoomID = (event) => {
+    setInput(event.target.value)
+}   
   s.addEventListener('open', () => {
     console.log('socketOpen: Client says: websocket is connected')
 })
 
   return(
-    <BrowserRouter>
+    
+    
     <div className='App'>
+      <button onClick={generateRoomID}>Generate Room ID</button>
+      <RouteButton buttonText={'Start Chat'} pageClickHandler={createRoom}></RouteButton>
+      <input id='room-id-input' type='text' value = {input} onChange={checkCurrentRoomID}/>
+      <button onClick={createRoom}>Join Room</button>
+      
       <Routes>
-        <Route path = '/' element = {<Login/>}/>
-        <Route path = '/homepage' element = {<HomePage socket={s} generateRandomWebsocket={generateRandomWebsocket} user={user} userList={userList} lobbyList={lobbyList} lobby={lobby} wsAddress={wsAddress}/>}/>
-        <Route path = '/createlobby' element = {<CreateLobby socket={s} generateRandomWebsocket={generateRandomWebsocket} user={user} userList={userList} lobbyList={lobbyList} lobby={lobby} wsAddress={wsAddress}/>}/>
-        <Route path = '/joinlobby' element = {<JoinLobby socket={s} generateRandomWebsocket={generateRandomWebsocket} user={user} userList={userList} lobbyList={lobbyList} lobby={lobby} wsAddress={wsAddress}/>}/>
-        <Route path = 'lobby' element = {<Lobby socket={s} generateRandomWebsocket={generateRandomWebsocket} user={user} userList={userList} lobbyList={lobbyList} lobby={lobby}/>}/>
+      <Route path = '/' element = {<Login/>}/>
+      <Route path = '/homepage' element = {<HomePage s={s}/>}/>
       </Routes>
     </div>
-    </BrowserRouter>
+   
   )
 }
 
 export default App
+
+//homepage.js parameterised and rename to room
+//app.js have a function called createroom creates roomlist
+//join room will navigate to the room component
