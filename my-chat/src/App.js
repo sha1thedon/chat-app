@@ -16,7 +16,7 @@ let wsAddress = 'ws://localhost'
  let ws = "ws://localhost:8082"
  let s = new WebSocket (ws)
 
- let lobbyList = []
+
  const userList = []
  const lobby = {
   'id': 0,
@@ -31,8 +31,7 @@ function App (){
 
   let isJoiner = false
 
-  lobbyList.push(1234)
-  console.log('lobby list at app.js is ', lobbyList)
+ 
 
   function generateRandomWebsocket (wss) {
     let min = 8000;
@@ -49,50 +48,35 @@ function App (){
   }
 
 
-  const createRoom = () => {
-    console.log('generateLobby: lobbyList is ', lobbyList)
-    const newLobby = {
-      'id': generateRoomID(),
-      'users': userList,
-      'websocket': s,
-      'messages': []
-    }
-    lobbyList.push(newLobby)
 
-   
+  s.addEventListener('message', (event) => {
+    console.log('event is ', event)
+    if(JSON.parse(event.data).messageType ===  'create a room'){
       navigate('/homepage')
-  
-  
     }
+    if(JSON.parse(event.data).messageType ===  'joined room'){
+      navigate('/homepage')
+    }
+      
+  })
 
-
-
-  
-  
-
-  const generateRoomID = () => {
-    let randomNumber = Math.random()
-
-    let ID = randomNumber.toString(36).substring(2, 15) + randomNumber.toString(36).substring(2, 15)
-    console.log('ID is ', ID)
-    return ID
-}
-
-  const joinRoom = () => {
-    console.log('lobby list at joinroom is ', lobbyList)
-    console.log(input)
-
-    lobbyList.forEach(function(item){
-      console.log('item is ', item)
-      console.log('item.id = ', item.id)
-      if (input === item.id){
-        
-        navigate('/homepage')
-      }
-      else{console.log('try again')}
-    })
+  const createRoom = () => {
+    s.send(JSON.stringify({
+      messageType: 'createRoom'
+    }))
 
   }
+
+  const joinRoom = (input) => {
+    s.send(JSON.stringify({
+      messageType: 'joinRoom',
+      data: input
+    }))
+
+
+  }
+
+    
   const checkCurrentRoomID = (event) => {
     setInput(event.target.value)
 }   
@@ -105,9 +89,9 @@ function App (){
     
     <div className='App'>
       {/* <button onClick={generateRoomID}>Generate Room ID</button> */}
-      <RouteButton buttonText={'Generate Chat'} pageClickHandler={createRoom} isjoiner={false}></RouteButton>
+      <RouteButton buttonText={'Generate Chat'} pageClickHandler={createRoom} ></RouteButton>
       <input id='room-id-input' type='text' value = {input} onChange={checkCurrentRoomID}/>
-      <button onClick={joinRoom} isJoiner={true}>Join Room</button>
+      <button onClick={() => joinRoom(input)} >Join Room</button>
       
       <Routes>
       <Route path = '/' element = {<Login/>}/>
