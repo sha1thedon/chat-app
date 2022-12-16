@@ -6,7 +6,13 @@ const MessageBox = ({socket, s}) => {
     const [input, setInput] = useState('')
     const [ message, setMessage] = useState([])
    
-
+    s.addEventListener('message', (data) => {
+      if(JSON.parse(data.data).messageType ===  'sent message'){
+        const myNewArray = [...message]
+        myNewArray.push(JSON.parse(data.data).data)
+        setMessage(myNewArray)
+      }
+    })
     const messageInput = () => {
         return (
           <div>
@@ -23,7 +29,10 @@ const MessageBox = ({socket, s}) => {
         //   setMessage(myNewArray)
         // setMessage()
         //onSubmit()
-        s.send(input)
+        s.send(JSON.stringify({
+          messageType: 'messageSent',
+          data: input
+        }))
         // event.preventDefault()
         console.log('sendToServer: ', input)
       }
@@ -34,13 +43,13 @@ const MessageBox = ({socket, s}) => {
       }
     
     
-      s.onmessage = ({ data }) => {
-        console.log('message from server', data)
-        console.log(data)
-        const myNewArray = [...message]
-        myNewArray.push(data)
-        setMessage(myNewArray)
-      }
+      // s.onmessage = ({ data }) => {
+      //   console.log('message from server', data)
+      //   console.log(data)
+      //   const myNewArray = [...message]
+      //   myNewArray.push(data)
+      //   setMessage(myNewArray)
+      // }
 
     const onInputHandler = (event) => {
         if(validMessage(event.target.value)){
