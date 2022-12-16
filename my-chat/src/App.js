@@ -104,7 +104,7 @@ function App (){
     
     
     <div className='App'>
-      <button onClick={generateRoomID}>Generate Room ID</button>
+      {/* <button onClick={generateRoomID}>Generate Room ID</button> */}
       <RouteButton buttonText={'Generate Chat'} pageClickHandler={createRoom} isjoiner={false}></RouteButton>
       <input id='room-id-input' type='text' value = {input} onChange={checkCurrentRoomID}/>
       <button onClick={joinRoom} isJoiner={true}>Join Room</button>
